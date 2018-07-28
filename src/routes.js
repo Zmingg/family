@@ -6,7 +6,7 @@ import {AsyncComponent} from 'components/asyncComponent';
 
 const RouteList = [
   /** 首页 */
-  { path: '/', component: Home},
+  { path: '/', component: Home.Home},
   /** 文章 */
   { path: '/article', component: Article.ArticleList},
 ];

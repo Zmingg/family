@@ -1,12 +1,15 @@
-import React, {Component} from 'react';
+import connectComponent from '../../store/connect';
 
-export default class Home extends Component {
+const Home = store => async () => {
+  const component = (await import('./components/index')).default;
 
-  render() {
-    return (
-      <div>
-        您好，欢迎使用。（{new Date().toLocaleString()}）
-      </div>
-    )
-  }
-}
+  return connectComponent(
+    state => state,
+    null
+  )(component);
+
+};
+
+export default {
+  Home,
+};
