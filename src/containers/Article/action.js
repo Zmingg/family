@@ -1,4 +1,5 @@
 import {User} from '../../api';
+import {bindActionCreators} from 'redux';
 
 export const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS';
 export const GET_USERS_FAILED = 'GET_USERS_FAILED';
@@ -23,8 +24,12 @@ function getUsersFailed(error) {
   }
 }
 
-const fetchPosts = () => dispatch => User.getUsers()
+const getUsers = () => dispatch => User.getUsers()
   .then(json => dispatch(getUsersSuccess(json)))
   .catch(e => dispatch(getUsersFailed(json)));
 
-export {fetchPosts};
+const mapDispatch = dispatch => bindActionCreators({
+  getUsers
+}, dispatch);
+
+export default mapDispatch;

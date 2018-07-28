@@ -10,7 +10,7 @@ const preloadedState = {
 /** 导出 Store */
 const configureStore = (preloadedState) => {
   const store = createStore(
-    makeRootReducer(preloadedState),
+    makeRootReducer(),
     preloadedState,
     applyMiddleware(
       thunkMiddleware,

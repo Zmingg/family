@@ -3,21 +3,20 @@ import connectComponent from '../../store/connect';
 
 const STATE_KEY = 'article';
 
-
-const ArticleList = (store) => async () => {
+const ArticleList = store => async () => {
   const component = (await import('./components/ArticleList')).default;
+  const dispatch = (await import('./action')).default;
   const reducer = (await import('./reducer')).default;
+
 
   injectReducer(store, {
     key: STATE_KEY,
     reducer: reducer
   });
 
-  connectComponent(
-    state => state,
-    dispatch => {
-      return {}
-    }
+  return connectComponent(
+    state => state[STATE_KEY],
+    dispatch
   )(component);
 
 };

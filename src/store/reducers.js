@@ -1,17 +1,16 @@
 import {combineReducers} from 'redux';
 
-const makeRootReducer = (preloadedState, asyncReducers = {}) => {
+const makeRootReducer = (asyncReducers = {}) => {
   return combineReducers({
     /** 动态reducer */
     ...asyncReducers,
     /** 以下添加初始reducers */
-    passport: (state = preloadedState, action) => state
+    passport: (state = {}, action) => state
   });
 };
 
 const injectReducer = (store, {key, reducer}) => {
   if (Object.hasOwnProperty.call(store.asyncReducers, key)) return;
-
   store.asyncReducers[key] = reducer;
   store.replaceReducer(makeRootReducer(store.asyncReducers));
 };

@@ -24,8 +24,6 @@ export const AsyncComponent = (loadComponent) => class extends Component {
   async componentDidMount() {
     const component = await loadComponent();
 
-    console.log(loadComponent)
-
     if(!this.mount) return;
 
     this.setState({
