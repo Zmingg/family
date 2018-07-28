@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import {Route, Redirect, Switch} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import Home from './containers/Home';
 import Article from './containers/Article';
 import {AsyncComponent} from 'components/asyncComponent';
