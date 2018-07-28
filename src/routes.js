@@ -1,12 +1,12 @@
 import React, {Component, Fragment} from 'react';
 import {Route, Redirect, Switch} from 'react-router-dom';
-// import Home from './containers/Home';
+import Home from './containers/Home';
 import Article from './containers/Article';
 import {AsyncComponent} from 'components/asyncComponent';
 
 const RouteList = [
   /** 首页 */
-  // { path: '/', component: Home},
+  { path: '/', component: Home},
   /** 文章 */
   { path: '/article', component: Article.ArticleList},
 ];
