@@ -25,7 +25,7 @@ export default withRouter(class extends Component {
   };
 
   route = (route) => {
-    this.props.history.push(route === 'home' ? '/' : route)
+    this.props.history.push(route === 'home' ? '/' : '/' + route)
   };
 
   render() {
