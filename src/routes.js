@@ -1,6 +1,9 @@
 import React, {Component, Fragment} from 'react';
 import {Route, Redirect, Switch} from 'react-router-dom';
+import {BrowserRouter as Router} from 'react-router-dom';
+import MainFrame from './containers/Frame';
 import Home from './containers/Home';
+import Passport from './containers/Passport';
 import Article from './containers/Article';
 import {AsyncComponent} from 'components/asyncComponent';
 
@@ -12,7 +15,7 @@ const RouteList = [
 ];
 
 const auth = {
-  isAuthenticated: true,
+  isAuthenticated: false,
   authenticate(cb) {
     this.isAuthenticated = true;
     setTimeout(cb, 100); // fake async
@@ -28,7 +31,9 @@ const PrivateRoute = ({component: Component, ...rest}) => (
     {...rest}
     render={props =>
       auth.isAuthenticated ? (
-        <Component {...props} />
+        <MainFrame>
+          <Component {...props}/>
+        </MainFrame>
       ) : (
         <Redirect
           to={{
@@ -42,17 +47,21 @@ const PrivateRoute = ({component: Component, ...rest}) => (
 );
 
 const createRoutes = store =>
-  <Fragment>
+  <Router basename='/'>
     <Switch>
+      {/* 登陆 */}
+      <Route path='/passport/login' component={AsyncComponent(Passport.Login(store))} exact/>
+      {/* 主路由 */}
       {RouteList.map((route, index) =>
         <PrivateRoute key={index}
                       path={route.path}
                       exact
                       component={AsyncComponent(route.component(store))}/>
       )}
-      <Route component={() => (<div>未找到页面 404</div>)} />
+      {/* 404 */}
+      <Route component={() => (<div>404 未找到页面</div>)} exact/>
     </Switch>
-  </Fragment>
+  </Router>
 ;
 
 export default createRoutes;
