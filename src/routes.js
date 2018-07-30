@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {Route, Redirect, Switch} from 'react-router-dom';
 import {BrowserRouter as Router} from 'react-router-dom';
-import MainFrame from './containers/Frame';
+import Frame from './containers/Frame';
 import Home from './containers/Home';
 import Passport from './containers/Passport';
 import Article from './containers/Article';
@@ -14,8 +14,9 @@ const RouteList = [
   { path: '/article', component: Article.ArticleList},
 ];
 
-const PrivateRoute = ({component: Component, auth, ...rest}) => (
-  <Route
+const PrivateRoute = ({component: Component, auth, store, ...rest}) => {
+  const MainFrame = AsyncComponent(Frame(store));
+  return (<Route
     {...rest}
     render={props =>
       auth() ? (
@@ -31,8 +32,8 @@ const PrivateRoute = ({component: Component, auth, ...rest}) => (
         />
       )
     }
-  />
-);
+  />)
+};
 
 const createRoutes = store =>
   <Router basename='/'>
@@ -44,6 +45,7 @@ const createRoutes = store =>
         <PrivateRoute key={index}
                       path={route.path}
                       exact
+                      store={store}
                       auth={() => store.getState().passport['auth']}
                       component={AsyncComponent(route.component(store))}/>
       )}

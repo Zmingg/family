@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {withRouter} from "react-router-dom";
 import {Menu, Icon} from 'antd';
-import './menu.scss';
+import './style.scss';
 
 const SubMenu = Menu.SubMenu;
 

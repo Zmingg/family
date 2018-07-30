@@ -1,22 +1,27 @@
-import React, {Component, Fragment} from 'react';
-import MenuList from './Menu/Menu';
-import './index.scss';
+import {injectReducer} from '../../store/reducers';
+import connectComponent from '../../store/connect';
 
-export default class Frame extends Component {
+const STATE_KEY = 'frame';
 
-  render() {
-    return (
-      <Fragment>
-        <header/>
-        <main>
-          <div className='container'>
-          {this.props.children}
-          </div>
-        </main>
-        <aside>
-          <MenuList/>
-        </aside>
-      </Fragment>
-    );
-  }
-}
+const Frame = store => async () => {
+  const component = (await import('./components/Frame')).default;
+  const dispatch = (await import('./action')).default;
+  const reducer = (await import('./reducer')).default;
+
+
+  injectReducer(store, {
+    key: STATE_KEY,
+    reducer: reducer
+  });
+
+  return connectComponent(
+    state => ({
+      [STATE_KEY]: state[STATE_KEY],
+      passport: state['passport']
+    }), dispatch
+  )(component);
+
+};
+
+export default Frame;
+
