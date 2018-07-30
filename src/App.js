@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Provider} from 'react-redux'
-import store from './store'
+import {store, persistor} from './store'
+import {PersistGate} from 'redux-persist/integration/react'
 import createRoutes from './routes';
 import {LocaleProvider} from 'antd';
 import zhCN from 'antd/lib/locale-provider/zh_CN';
@@ -11,9 +12,11 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <LocaleProvider locale={zhCN}>
-          {createRoutes(store)}
-        </LocaleProvider>
+        <PersistGate loading={null} persistor={persistor}>
+          <LocaleProvider locale={zhCN}>
+            {createRoutes(store)}
+          </LocaleProvider>
+        </PersistGate>
       </Provider>
     )
   }

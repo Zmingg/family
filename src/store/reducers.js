@@ -1,13 +1,21 @@
 import {combineReducers} from 'redux';
+import {persistReducer} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
+const persistConfig = {
+  key: 'root',
+  whitelist: ['passport'],
+  storage,
+}
 
 const makeRootReducer = (asyncReducers = {}) => {
-  return combineReducers({
+  return persistReducer(persistConfig, combineReducers({
     /** 以下添加初始reducers */
     passport: (state = {}, action) => state,
 
     /** 动态reducer */
     ...asyncReducers
-  });
+  }));
 };
 
 const injectReducer = (store, {key, reducer}) => {
@@ -16,11 +24,4 @@ const injectReducer = (store, {key, reducer}) => {
   store.replaceReducer(makeRootReducer(store.asyncReducers));
 };
 
-const createReducer = (initialState, ACTION_HANDLES) => (
-  (state = initialState, action) => {
-    const handler = ACTION_HANDLES[action.type];
-    return handler ? handler(state, action) : state;
-  }
-);
-
-export {makeRootReducer, injectReducer, createReducer};
+export {makeRootReducer, injectReducer};
