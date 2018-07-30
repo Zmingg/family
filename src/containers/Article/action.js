@@ -7,26 +7,20 @@ export const GET_USERS_FAILED = 'GET_USERS_FAILED';
 const getUsersSuccess = (json) => {
   return {
     type: GET_USERS_SUCCESS,
-    payload: {
-      data: json
-    },
-    receivedAt: Date.now()
+    payload: json
   }
 }
 
 const getUsersFailed = (error) => {
   return {
     type: GET_USERS_FAILED,
-    payload: {
-      error: error
-    },
-    receivedAt: Date.now()
+    payload: error
   }
 }
 
 const getUsers = () => dispatch => User.getUsers()
   .then(json => dispatch(getUsersSuccess(json)))
-  .catch(e => dispatch(getUsersFailed(json)));
+  .catch(e => dispatch(getUsersFailed(e)));
 
 const mapDispatch = dispatch => bindActionCreators({
   getUsers

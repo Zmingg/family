@@ -2,10 +2,11 @@ import {combineReducers} from 'redux';
 
 const makeRootReducer = (asyncReducers = {}) => {
   return combineReducers({
-    /** 动态reducer */
-    ...asyncReducers,
     /** 以下添加初始reducers */
-    passport: (state = {}, action) => state
+    passport: (state = {}, action) => state,
+
+    /** 动态reducer */
+    ...asyncReducers
   });
 };
 

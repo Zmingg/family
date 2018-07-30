@@ -14,23 +14,11 @@ const RouteList = [
   { path: '/article', component: Article.ArticleList},
 ];
 
-const auth = {
-  isAuthenticated: false,
-  authenticate(cb) {
-    this.isAuthenticated = true;
-    setTimeout(cb, 100); // fake async
-  },
-  signout(cb) {
-    this.isAuthenticated = false;
-    setTimeout(cb, 100);
-  }
-};
-
-const PrivateRoute = ({component: Component, ...rest}) => (
+const PrivateRoute = ({component: Component, auth, ...rest}) => (
   <Route
     {...rest}
     render={props =>
-      auth.isAuthenticated ? (
+      auth() ? (
         <MainFrame>
           <Component {...props}/>
         </MainFrame>
@@ -56,6 +44,7 @@ const createRoutes = store =>
         <PrivateRoute key={index}
                       path={route.path}
                       exact
+                      auth={() => store.getState().passport['auth']}
                       component={AsyncComponent(route.component(store))}/>
       )}
       {/* 404 */}

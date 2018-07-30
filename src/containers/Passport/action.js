@@ -1,48 +1,45 @@
 import {User} from '../../api';
 import {bindActionCreators} from 'redux';
 
-export const USER_INFO_SUCCESS = 'USER_INFO_SUCCESS';
-export const USER_INFO_FAILED = 'USER_INFO_FAILED';
-export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
-export const USER_LOGIN_FAILED = 'USER_LOGIN_FAILED';
+export const
+  USER_INFO_SUCCESS = 'USER_INFO_SUCCESS',
+  USER_INFO_FAILED = 'USER_INFO_FAILED',
+  USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS',
+  USER_LOGIN_FAILED = 'USER_LOGIN_FAILED',
+  SET_PASSPORT = 'SET_PASSPORT';
 
 const getUserInfoSuccess = (json) => {
   return {
     type: USER_INFO_SUCCESS,
-    payload: {
-      data: json
-    },
-    receivedAt: Date.now()
+    payload: json
   }
 }
 
 const getUserInfoFailed = (error) => {
   return {
     type: USER_INFO_FAILED,
-    payload: {
-      error: error
-    },
-    receivedAt: Date.now()
+    payload: error
   }
 }
 
 const loginSuccess = (json) => {
   return {
     type: USER_LOGIN_SUCCESS,
-    payload: {
-      data: json
-    },
-    receivedAt: Date.now()
+    payload: json,
   }
 }
 
 const loginFailed = (error) => {
   return {
     type: USER_LOGIN_FAILED,
-    payload: {
-      error: error
-    },
-    receivedAt: Date.now()
+    payload: error
+  }
+}
+
+const setPassport = (user) => {
+  return {
+    type: SET_PASSPORT,
+    payload: user,
   }
 }
 
@@ -56,7 +53,8 @@ const authLogin = ({user, pass}) => dispatch => User.checkAuth({user, pass})
 
 const mapDispatch = dispatch => bindActionCreators({
   getUserInfo,
-  authLogin
+  authLogin,
+  setPassport: (user) => dispatch => dispatch(setPassport(user))
 }, dispatch);
 
 export default mapDispatch;

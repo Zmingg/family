@@ -41,7 +41,7 @@ class User {
 
     return new Promise((resolve, reject) => {
       fetch(User.domain + path, reqParameters).then(res => res.json()).then(json => {
-        resolve(json['error'] ? json['error'] : json['data']);
+        resolve(json);
       }).catch(e => {
         reject(e);
       })
