@@ -1,17 +1,18 @@
 import React, {Component, Fragment} from 'react';
 
+const debug = require('debug')('article');
+
 export default class ArticleList extends Component {
 
   componentDidMount() {
-    this.props.getUsers()
+    debug(this.props);
+    this.props.fetchUser();
   }
 
   render() {
-    const {users} = this.props;
-
     return (
       <Fragment>
-        name: {users.map(user => user.name)}
+        name:
       </Fragment>
     )
   }

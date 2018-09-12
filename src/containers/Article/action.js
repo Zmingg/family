@@ -28,8 +28,14 @@ const getUsers = () => dispatch => User.getUsers()
   .then(json => dispatch(getUsersSuccess(json)))
   .catch(e => dispatch(getUsersFailed(json)));
 
+const fetchUser = (state, action) => ({
+  type: 'USER_FETCH_REQUESTED',
+  payload: {userId: 1}
+});
+
 const mapDispatch = dispatch => bindActionCreators({
-  getUsers
+  getUsers,
+  fetchUser
 }, dispatch);
 
 export default mapDispatch;

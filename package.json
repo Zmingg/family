@@ -15,6 +15,7 @@
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.0",
+    "redux-saga": "^0.16.0",
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
@@ -42,6 +43,7 @@
     "postcss-pxtorem": "^4.0.1",
     "postcss-scss": "^1.0.6",
     "precss": "^3.1.2",
+    "redux-devtools-extension": "^2.13.5",
     "style-loader": "^0.21.0",
     "ts-loader": "^4.4.2",
     "typescript": "^2.9.2",
