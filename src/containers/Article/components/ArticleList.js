@@ -5,8 +5,15 @@ const debug = require('debug')('article');
 export default class ArticleList extends Component {
 
   componentDidMount() {
-    debug(this.props);
-    this.props.fetchUser();
+    this.getPassportList();
+  }
+
+  getPassportList = async () => {
+    const {Basic} = this.props.services;
+    const res = await Basic.findPassports({
+      pageIndex: 1,
+      pageSize: 10
+    });
   }
 
   render() {

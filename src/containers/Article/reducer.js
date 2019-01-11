@@ -4,7 +4,8 @@ import {
 } from './action';
 
 const initialState = {
-  users: []
+  users: [],
+  article: []
 };
 
 const reducer = (state = initialState, action) => {

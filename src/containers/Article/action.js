@@ -1,4 +1,4 @@
-import {User} from '../../api';
+import {User} from '../../api/services/index';
 import {bindActionCreators} from 'redux';
 
 export const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS';
