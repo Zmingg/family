@@ -10,8 +10,8 @@
     "antd": "^3.6.6",
     "cross-fetch": "^2.2.2",
     "debug": "^3.1.0",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.0",
@@ -53,7 +53,7 @@
     "webpack": "^4.16.0",
     "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^3.0.8",
-    "webpack-dev-server": "^3.1.4"
+    "webpack-dev-server": "^3.1.14"
   },
   "browserslist": [
     "> 1%",
