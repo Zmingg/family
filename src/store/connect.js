@@ -31,16 +31,31 @@ const createDispatchProps = (handlers) => {
   return dispatch => bindActionCreators(dispatchs, dispatch);
 }
 
-export default connectComponent = (stateKeys, handlers) => {
+/**
+ * connectComponent
+ * 
+ * @param {*} stateKeys 
+ * @param {*} handlers 
+ */
+const connectComponent = (stateKeys, handlers) => {
   const reducer = createReducer(handlers);
   const mapDispatchToProps = createDispatchProps(handlers);
-  const mapStateToProps = state => stateKeys.map(key => state[key]);
+  const mapStateToProps = state => {
+    const stateProps = {};
+    stateKeys.map(key => {
+      stateProps[key] = state[key]
+    })
+    return stateProps;
+  };
 
-  injectReducer(store, {
-    key: STATE_KEY,
-    reducer: reducer
-  });
-  
+  return (component, store, stateKey) => {
+    injectReducer(store, {
+      key: stateKey,
+      reducer: reducer
+    });
 
-  return component => connect(mapStateToProps, mapDispatchToProps)(component);
+    return connect(mapStateToProps, mapDispatchToProps)(component)
+  };
 }
+
+export default connectComponent;
