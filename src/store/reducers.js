@@ -4,18 +4,19 @@ import storage from 'redux-persist/lib/storage';
 
 const persistConfig = {
   key: 'root',
-  whitelist: ['passport'],
+  whitelist: ['passport', 'runSaga'],
   storage,
 }
 
 const makeRootReducer = (asyncReducers = {}) => {
-  return combineReducers({
+  return persistReducer(persistConfig, combineReducers({
     /** 以下添加初始reducers */
+    runSaga: (state = {}, action) => state,
     passport: (state = {}, action) => state,
     services: (state = {}, action) => state,
     /** 动态reducer */
     ...asyncReducers,
-  });
+  }));
 };
 
 const injectReducer = (store, {key, reducer}) => {

@@ -8,16 +8,8 @@ export default Form.create()(class ArticleList extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    const values = this.props.form.getFieldsValue();
-    const action = await this.props.authLogin(values);
-
-    if (action.payload['code'] === 0) {
-      this.props.setPassport(action.payload['data']);
-      console.log(this.props)
-      if (this.props.passport['auth']) {
-        this.props.history.replace('/');
-      }
-    }
+    const {auth} = this.props;
+    auth('asdas');
   };
 
   componentDidMount() {

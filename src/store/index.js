@@ -1,12 +1,13 @@
 import {createStore, applyMiddleware} from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { persistStore } from 'redux-persist'
 import {makeRootReducer} from './reducers'
 import createSagaMiddleware from 'redux-saga'
-import mySaga from '../api/saga'
+import mySaga from './saga'
 import ApiClient from '../api'
 
 const debug = require('debug')('api');
-const sagaMiddleware = createSagaMiddleware();
+const sagaMiddleware = createSagaMiddleware()
 
 /** 初始化 State */
 const preloadedState = {
@@ -17,11 +18,14 @@ const preloadedState = {
 /** 导出 Store */
 const configureStore = (preloadedState) => {
 
-  const store = createStore(
-    makeRootReducer(),
-    preloadedState,
-    composeWithDevTools(applyMiddleware(sagaMiddleware)),
-  );
+  const store = {
+    ...createStore(
+      makeRootReducer(),
+      preloadedState,
+      composeWithDevTools(applyMiddleware(sagaMiddleware)),
+    ),
+    runSaga: sagaMiddleware.run,
+  };
 
   store.asyncReducers = {};
 
@@ -29,10 +33,11 @@ const configureStore = (preloadedState) => {
     module.hot.accept('./reducers', () => {
       const reducers = require('./reducers').default;
       store.replaceReducer(reducers(store.asyncReducers));
+      store.runSaga(mySaga);
     });
   }
 
-  sagaMiddleware.run(mySaga);
+  store.runSaga(mySaga);
 
   debug(store.getState());
 

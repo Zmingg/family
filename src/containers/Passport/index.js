@@ -5,9 +5,9 @@ const STATE_KEY = 'passport';
 
 const Login = store => async () => {
   const component = (await import('./components/Login')).default;
-  const dispatch = (await import('./action')).default;
-  const reducer = (await import('./reducer')).default;
-
+  const handlers = (await import('./action')).default;
+  // const reducer = createReducer(handlers);
+  // const dispatchProps = createDispatchProps(handlers);
 
   injectReducer(store, {
     key: STATE_KEY,
@@ -16,7 +16,7 @@ const Login = store => async () => {
 
   return connectComponent(
     state => state,
-    dispatch
+    dispatchProps
   )(component);
 
 };
