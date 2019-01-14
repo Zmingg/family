@@ -1,7 +1,6 @@
-import {bindActionCreators} from 'redux';
+/**
+ * Handlers
+ */
+export default {
 
-const mapDispatch = dispatch => bindActionCreators({
-
-}, dispatch);
-
-export default mapDispatch;
+}

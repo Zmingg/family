@@ -4,6 +4,8 @@ import {injectReducer} from './reducers';
 import _ from 'lodash';
 import Case from 'case';
 
+const INITIAL_STATE_KEYS = ['services'];
+
 const createReducer = (handlers) => {
   const handlerKeys = Object.keys(handlers);
 
@@ -16,20 +18,20 @@ const createReducer = (handlers) => {
       return state;
     }
   }
-}
+};
 
 const createDispatchProps = (handlers) => {
   const handlerKeys = Object.keys(handlers);
-  const dispatchs = {};
+  const dispatchers = {};
   handlerKeys.map(handlerKey => {
-    dispatchs[handlerKey] = payload => ({
+    dispatchers[handlerKey] = payload => ({
       type: Case.constant(handlerKey),
       payload
     })
   })
 
-  return dispatch => bindActionCreators(dispatchs, dispatch);
-}
+  return dispatch => bindActionCreators(dispatchers, dispatch);
+};
 
 /**
  * connectComponent
@@ -42,17 +44,21 @@ const connectComponent = (stateKeys, handlers) => {
   const mapDispatchToProps = createDispatchProps(handlers);
   const mapStateToProps = state => {
     const stateProps = {};
+    stateKeys = [...stateKeys, ...INITIAL_STATE_KEYS];
+
     stateKeys.map(key => {
       stateProps[key] = state[key]
-    })
+    });
     return stateProps;
   };
 
   return (component, store, stateKey) => {
-    injectReducer(store, {
-      key: stateKey,
-      reducer: reducer
-    });
+    if (stateKey) {
+      injectReducer(store, {
+        key: stateKey,
+        reducer: reducer
+      });
+    }
 
     return connect(mapStateToProps, mapDispatchToProps)(component)
   };

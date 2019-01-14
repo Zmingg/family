@@ -5,8 +5,8 @@ const debug = require('debug')('article');
 
 export default class ArticleList extends Component {
 
-  componentDidMount() {
-    this.getPassportList();
+  async componentDidMount() {
+    await this.getPassportList();
   }
 
   getPassportList = async () => {

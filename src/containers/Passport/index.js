@@ -1,4 +1,3 @@
-import {injectReducer} from '../../store/reducers';
 import connectComponent from '../../store/connect';
 
 const STATE_KEY = 'passport';

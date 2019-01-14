@@ -6,14 +6,21 @@ const FormItem = Form.Item;
 
 export default Form.create()(class ArticleList extends Component {
 
+  state = {};
+
   handleSubmit = async (e) => {
     e.preventDefault();
     const {auth} = this.props;
     auth('asdas');
   };
 
-  componentDidMount() {
-
+  static getDerivedStateFromProps(props, state) {
+    const {passport, history} = props;
+    const isAuth = passport.auth;
+    if (isAuth) {
+      history.push('/');
+    }
+    return state;
   }
 
   render() {

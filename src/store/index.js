@@ -4,7 +4,6 @@ import { persistStore } from 'redux-persist'
 import {makeRootReducer} from './reducers'
 import createSagaMiddleware from 'redux-saga'
 import mySaga from './saga'
-import ApiClient from '../api'
 
 const debug = require('debug')('api');
 const sagaMiddleware = createSagaMiddleware()
@@ -12,7 +11,6 @@ const sagaMiddleware = createSagaMiddleware()
 /** 初始化 State */
 const preloadedState = {
   passport: {},
-  services: new ApiClient()
 };
 
 /** 导出 Store */
@@ -31,8 +29,7 @@ const configureStore = (preloadedState) => {
 
   if (module.hot) {
     module.hot.accept('./reducers', () => {
-      const reducers = require('./reducers').default;
-      store.replaceReducer(reducers(store.asyncReducers));
+      store.replaceReducer(makeRootReducer(store.asyncReducers));
       store.runSaga(mySaga);
     });
   }
