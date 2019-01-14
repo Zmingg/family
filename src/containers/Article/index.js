@@ -15,7 +15,7 @@ const ArticleList = store => async () => {
   });
 
   return connectComponent(
-    state => state[STATE_KEY],
+    state => state,
     dispatch
   )(component);
 

@@ -9,13 +9,13 @@ const persistConfig = {
 }
 
 const makeRootReducer = (asyncReducers = {}) => {
-  return persistReducer(persistConfig, combineReducers({
+  return combineReducers({
     /** 以下添加初始reducers */
     passport: (state = {}, action) => state,
-
+    services: (state = {}, action) => state,
     /** 动态reducer */
-    ...asyncReducers
-  }));
+    ...asyncReducers,
+  });
 };
 
 const injectReducer = (store, {key, reducer}) => {

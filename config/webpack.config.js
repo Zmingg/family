@@ -115,7 +115,7 @@ const webpackConfig = {
       inject: 'body',
       minify: {
         collapseWhitespace: true
-      }
+      },
     }),
 
     // copy static resource
@@ -148,7 +148,8 @@ if (__DEV__) {
         pathRewrite: {'^/api': '/'},
         secure: false
       }
-    }
+    },
+    disableHostCheck: true
   };
 
 }
